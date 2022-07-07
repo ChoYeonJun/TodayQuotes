@@ -16,6 +16,15 @@ public class App {
             switch (cmd){
                 case "종료" :
                     break outer;
+
+                case "등록" :
+                    System.out.print("명언 : ");
+                    String quote = sc.nextLine().trim();
+
+                    System.out.print("작가 : ");
+                    String writer = sc.nextLine().trim();
+
+                    System.out.println("1번 명언이 등록되었습니다.");
             }
 
 
