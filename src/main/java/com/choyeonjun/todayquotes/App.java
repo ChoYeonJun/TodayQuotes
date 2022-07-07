@@ -9,7 +9,7 @@ public class App {
 
         Scanner sc = new Scanner(System.in);
 
-        outer:
+        outer: //while 문 라벨링
         while(true){
             System.out.printf("명령) ");
             String cmd = sc.nextLine().trim();
