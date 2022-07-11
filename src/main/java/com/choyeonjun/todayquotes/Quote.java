@@ -4,12 +4,12 @@ public class Quote {
     int id;
 
     String content;
-    String writer;
+    String author;
 
-    public Quote(int id, String content, String writer) {
+    public Quote(int id, String content, String author) {
         this.id = id;
         this.content = content;
-        this.writer = writer;
+        this.author = author;
     }
 
     public int getId() {
@@ -29,10 +29,10 @@ public class Quote {
     }
 
     public String getWriter() {
-        return writer;
+        return author;
     }
 
-    public void setWriter(String writer) {
-        this.writer = writer;
+    public void setWriter(String author) {
+        this.author = author;
     }
 }
