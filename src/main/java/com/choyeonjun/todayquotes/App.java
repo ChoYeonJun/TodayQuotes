@@ -77,17 +77,11 @@ public class App {
         }
 
         // URL에 입력된 id에 해당하는 명언객체 찾기
-        Quote foundQuote = null;
-
-        for (Quote quote : quotes) {
-            if (quote.id == paramId) {
-                foundQuote = quote;
-            }
-        }
+        Quote foundQuote  = findById(paramId);
 
         // 찾지 못했다면 중지
         if (foundQuote == null) {
-            System.out.printf("%d번 명언은 존재하지 않습니다..\n", paramId);
+            System.out.printf("%d번 명언은 존재하지 않습니다.\n", paramId);
             return;
         }
 
@@ -96,8 +90,17 @@ public class App {
 
         System.out.printf("%d번 명언이 삭제되었습니다.\n", paramId);
     }
+
+    private Quote findById(int paramId){
+        for(Quote quote: quotes){
+            if(quote.id == paramId)
+                return quote;
+        }
+
+        return null;
+    }
 }
 
 
 
-}
+
