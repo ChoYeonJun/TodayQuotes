@@ -6,13 +6,12 @@ import java.util.Scanner;
 
 public class QuoteController {
     private Scanner sc;
-    private List<Quote> quotes;
-    private int quotesLastId;
 
-    public QuoteController(Scanner sc) {
+    private QuoteRepository quoteRepository;
+
+    QuoteController(Scanner sc) {
         this.sc = sc;
-        this.quotes = new ArrayList<>();
-        this.quotesLastId = 0;
+        quoteRepository = new QuoteRepository();
     }
     public void modify(Rq rq) {
         // URL에 입력된 id 얻기
@@ -25,7 +24,7 @@ public class QuoteController {
         }
 
         // URL에 입력된 id에 해당하는 명언객체 찾기
-        Quote foundQuote  = findById(paramId);
+        Quote foundQuote  = quoteRepository.findById(paramId);
 
         // 찾지 못했다면 중지
         if (foundQuote == null) {
@@ -46,8 +45,8 @@ public class QuoteController {
     public void list(Rq rq) {
         System.out.println("번호 / 작가 / 명언");
         System.out.println("-------------------");
-        for (int i = quotes.size() - 1; i >= 0; i--) {
-            Quote quote_ = quotes.get(i);
+        for (int i = quoteRepository.quotes.size() - 1; i >= 0; i--) {
+            Quote quote_ = quoteRepository.quotes.get(i);
             System.out.printf("%d / %s / %s\n", quote_.id, quote_.content, quote_.author);
         }
     }
@@ -57,10 +56,10 @@ public class QuoteController {
         String content = sc.nextLine().trim();
         System.out.printf("작가 : ");
         String author = sc.nextLine().trim();
-        int id = ++quotesLastId; // 명언 글 번호 증가
+        int id = ++quoteRepository.quotesLastId; // 명언 글 번호 증가
 
         Quote quote = new Quote(id, content, author);
-        quotes.add(quote);
+        quoteRepository.quotes.add(quote);
 
         System.out.printf("%d번 명언이 등록되었습니다.\n", id);
     }
@@ -76,7 +75,7 @@ public class QuoteController {
         }
 
         // URL에 입력된 id에 해당하는 명언객체 찾기
-        Quote foundQuote  = findById(paramId);
+        Quote foundQuote  = quoteRepository.findById(paramId);
 
         // 찾지 못했다면 중지
         if (foundQuote == null) {
@@ -85,17 +84,10 @@ public class QuoteController {
         }
 
         // 입력된 id에 해당하는 명언객체를 리스트에서 삭제
-        quotes.remove(foundQuote);
+        quoteRepository.quotes.remove(foundQuote);
 
         System.out.printf("%d번 명언이 삭제되었습니다.\n", paramId);
     }
 
-    private Quote findById(int paramId){
-        for(Quote quote: quotes){
-            if(quote.id == paramId)
-                return quote;
-        }
 
-        return null;
-    }
 }
