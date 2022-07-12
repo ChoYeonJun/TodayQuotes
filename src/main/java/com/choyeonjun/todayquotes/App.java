@@ -36,12 +36,44 @@ public class App {
                 case "삭제":
                     remove(rq);
                     break;
+                case "수정":
+                    modify(rq);
+                    break;
                 case "목록":
                     list(rq);
 
             }
         }
         sc.close();
+    }
+
+    private void modify(Rq rq) {
+        // URL에 입력된 id 얻기
+        int paramId = rq.getIntParam("id", 0);
+
+        // URL에 입력된 id가 없다면 작업중지
+        if (paramId == 0) {
+            System.out.println("id를 입력해주세요.");
+            return;
+        }
+
+        // URL에 입력된 id에 해당하는 명언객체 찾기
+        Quote foundQuote  = findById(paramId);
+
+        // 찾지 못했다면 중지
+        if (foundQuote == null) {
+            System.out.printf("%d번 명언은 존재하지 않습니다.\n", paramId);
+            return;
+        }
+
+        System.out.printf("명언(기존) : %s\n", foundQuote.content);
+        System.out.printf("명언 : ");
+        foundQuote.content = sc.nextLine();
+        System.out.printf("작가(기존) : %s\n", foundQuote.author);
+        System.out.printf("작가 : ");
+        foundQuote.author = sc.nextLine();
+
+        System.out.printf("%d번 명언이 수정되었습니다.\n", paramId);
     }
 
     private void list(Rq rq) {
