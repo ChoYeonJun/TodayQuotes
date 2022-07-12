@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuoteRepository {
-    public List<Quote> quotes;
-    public int quotesLastId;
+    private List<Quote> quotes;
+    private int quotesLastId;
 
     public QuoteRepository() {
         this.quotes = new ArrayList<>();
@@ -19,5 +19,36 @@ public class QuoteRepository {
         }
 
         return null;
+    }
+
+    public List<Quote> findAll() {
+        return quotes;
+
+        // 다 찾기
+    }
+
+    public Quote write(String content, String author) {
+        int id = ++quotesLastId;
+        Quote quote = new Quote(id, content, author);
+        quotes.add(quote);
+
+        // 파일저장
+
+        return quote;
+    }
+
+    public void remove(int paramId) {
+        Quote foundQuote = findById(paramId);
+        quotes.remove(foundQuote);
+
+        // 파일 삭제
+    }
+
+    public void modify(int paramId, String content, String author) {
+        Quote foundQuote = findById(paramId);
+        foundQuote.content = content;
+        foundQuote.author = author;
+
+        // 파일 수정
     }
 }
